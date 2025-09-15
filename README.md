@@ -54,18 +54,18 @@ MIT
 
 For stronger checks, you can enable Sightengine image analysis via a small Node proxy (to keep secrets safe).
 
-1) Create `.env` next to `server.js`:
+1. Create `.env` next to `server.js`:
 
 ```
 SIGHTENGINE_API_USER=your_api_user
 SIGHTENGINE_API_SECRET=your_api_secret
 # Optional
-SIGHTENGINE_MODELS=ai-generated
+SIGHTENGINE_MODELS=genai,deepfake,embedded_text_detector,qr_code_moderation
 CORS_ORIGIN=http://localhost:5173
 PORT=8787
 ```
 
-2) Install and run the backend:
+2. Install and run the backend:
 
 ```bash
 npm install
@@ -73,8 +73,9 @@ npm run dev
 # Backend listens on http://localhost:8787
 ```
 
-3) Open the site (e.g., with `python3 -m http.server 5173`) and upload an image; the app will call `/api/check-image` automatically.
+3. Open the site (e.g., with `python3 -m http.server 5173`) and upload an image; the app will call `/api/check-image` automatically.
 
 Notes:
+
 - Do not expose your API secret in the browser. Keep the proxy.
 - GitHub Pages cannot run the backend; deploy the proxy separately (e.g., Render, Railway, Fly.io, Vercel functions, Cloud Run) and set CORS accordingly.
