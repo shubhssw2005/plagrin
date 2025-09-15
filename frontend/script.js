@@ -275,17 +275,35 @@ function sightengineToVerdict(seData) {
 async function checkWithSightengine(file) {
     const endpoint = (window.SE_BACKEND || '').replace(/\/$/, '') || '';
     const url = `${endpoint}/api/check-image`;
+    
+    console.log('Attempting to connect to backend:', url);
+    
     const form = new FormData();
     form.append('media', file, file.name || 'upload');
-    const resp = await fetch(url, { method: 'POST', body: form });
-    const contentType = resp.headers.get('content-type') || '';
-    if (!resp.ok) {
-        let errText = 'Sightengine request failed';
-        try { errText = await resp.text(); } catch (_) { }
-        throw new Error(errText);
+    
+    try {
+        const resp = await fetch(url, { method: 'POST', body: form });
+        const contentType = resp.headers.get('content-type') || '';
+        
+        if (!resp.ok) {
+            let errText = `HTTP ${resp.status}: ${resp.statusText}`;
+            try { 
+                const responseText = await resp.text(); 
+                errText = responseText || errText;
+            } catch (_) { }
+            throw new Error(errText);
+        }
+        
+        const data = contentType.includes('application/json') ? await resp.json() : await resp.text();
+        console.log('Backend response:', data);
+        return data;
+    } catch (fetchError) {
+        console.error('Backend connection error:', fetchError);
+        if (fetchError.name === 'TypeError' && fetchError.message.includes('fetch')) {
+            throw new Error(`Cannot connect to backend at ${url}. Please check if the backend is running.`);
+        }
+        throw fetchError;
     }
-    const data = contentType.includes('application/json') ? await resp.json() : await resp.text();
-    return data;
 }
 
 function mergeSightengineResult(currentScore, reasons, seData) {

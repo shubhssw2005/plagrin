@@ -103,7 +103,40 @@
         // Backend API base (automatically detects environment)
         window.SE_BACKEND = window.location.hostname === 'localhost' 
             ? 'http://localhost:8787' 
-            : 'https://plagrin-backend.onrender.com';
+            : 'https://plagrin.onrender.com';
+        
+        // Fallback backend URLs to try
+        const FALLBACK_BACKENDS = [
+            'https://plagrin.onrender.com',
+            'https://plagrin-backend.onrender.com',
+            'http://localhost:8787'
+        ];
+        
+        // Test backend connection and find working URL
+        async function findWorkingBackend() {
+            for (const backendUrl of FALLBACK_BACKENDS) {
+                try {
+                    const response = await fetch(`${backendUrl}/api/health`, {
+                        method: 'GET',
+                        mode: 'cors'
+                    });
+                    if (response.ok) {
+                        window.SE_BACKEND = backendUrl;
+                        console.log('✅ Backend connection successful:', backendUrl);
+                        return backendUrl;
+                    }
+                } catch (error) {
+                    console.log(`❌ Failed to connect to ${backendUrl}:`, error.message);
+                }
+            }
+            
+            console.error('❌ No working backend found. Please deploy the backend first.');
+            alert('Backend service is not available. Please try again later or contact support.');
+            return null;
+        }
+        
+        // Test connection when page loads
+        document.addEventListener('DOMContentLoaded', findWorkingBackend);
     </script>
     <script src="./script.js" defer></script>
 </body>

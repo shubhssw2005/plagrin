@@ -5,7 +5,7 @@ A web application that detects whether images or videos might be AI-generated us
 ## 🚀 Live Demo
 
 - **Frontend**: [https://plagrin.vercel.app](https://plagrin.vercel.app)
-- **Backend API**: [https://plagrin-backend.onrender.com](https://plagrin-backend.onrender.com)
+- **Backend API**: [https://plagrin.onrender.com](https://plagrin.onrender.com)
 
 ## 📋 Features
 
