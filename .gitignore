@@ -1,0 +1,20 @@
+# Node
+node_modules/
+.env
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Misc
+*.swp
+*.swo
+
+# Build
+/dist/
+/build/
+
+# VSCode
+.vscode/
