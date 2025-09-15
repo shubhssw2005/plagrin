@@ -16,6 +16,12 @@ Important: This is a client-side, heuristic-only demo. It can be wrong. For auth
   - Basic video container text sniff and dimension check
 - No server required (static site)
 
+### PDF-assisted verification (optional)
+
+- Upload a supporting PDF (e.g., a news report or fact-check) to provide context.
+- The app extracts text client-side via PDF.js and adjusts the explanation slightly if the PDF mentions AI-generation or authenticity terms.
+- This does NOT guarantee correctness; it only surfaces relevant mentions from the reference.
+
 ## Getting started
 
 Open `index.html` in a modern browser, or use a simple static server:
@@ -43,3 +49,32 @@ python3 -m http.server 5173
 ## License
 
 MIT
+
+## Sightengine integration (optional)
+
+For stronger checks, you can enable Sightengine image analysis via a small Node proxy (to keep secrets safe).
+
+1) Create `.env` next to `server.js`:
+
+```
+SIGHTENGINE_API_USER=your_api_user
+SIGHTENGINE_API_SECRET=your_api_secret
+# Optional
+SIGHTENGINE_MODELS=ai-generated
+CORS_ORIGIN=http://localhost:5173
+PORT=8787
+```
+
+2) Install and run the backend:
+
+```bash
+npm install
+npm run dev
+# Backend listens on http://localhost:8787
+```
+
+3) Open the site (e.g., with `python3 -m http.server 5173`) and upload an image; the app will call `/api/check-image` automatically.
+
+Notes:
+- Do not expose your API secret in the browser. Keep the proxy.
+- GitHub Pages cannot run the backend; deploy the proxy separately (e.g., Render, Railway, Fly.io, Vercel functions, Cloud Run) and set CORS accordingly.

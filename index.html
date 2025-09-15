@@ -17,6 +17,7 @@
     </header>
 
     <main class="container">
+      <h2 class="section-title">Step 1: Upload Image or Video :- </h2>
       <section class="uploader" id="dropzone" aria-label="Drag and drop area">
         <div class="uploader-inner">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -29,13 +30,49 @@
         </div>
       </section>
 
+      <h2 class="section-title" id="title-step2" hidden>Step 2: Upload Trustworthy Reference Image (Optional) :- </h2>
+      <section class="uploader" id="dropzone2" aria-label="Trustworthy image drag and drop area" hidden>
+        <div class="uploader-inner">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 16v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="uploader-text">drop a <strong>trustworthy reference image</strong> here, or <label for="file-input-2" class="browse">browse</label></p>
+          <p class="uploader-hint">Supported: JPG, PNG, WebP (max ~50MB)</p>
+          <input id="file-input-2" type="file" accept="image/*" hidden>
+        </div>
+      </section>
+
+      <h2 class="section-title" id="title-step3" hidden>Step 3: Upload Reference PDF (Optional) :- </h2>
+      <section class="uploader" id="pdf-dropzone" aria-label="PDF reference area" hidden>
+        <div class="uploader-inner">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 16v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="uploader-text">drop a <strong>PDF reference</strong> here, or <label for="pdf-input" class="browse">browse</label></p>
+          <p class="uploader-hint">Upload a trustworthy article/report to help contextualize the analysis.</p>
+          <input id="pdf-input" type="file" accept="application/pdf" hidden>
+        </div>
+      </section>
+
+      
+
+      <h3 class="section-subtitle" id="preview-title" hidden>Preview</h3>
       <section class="preview" id="preview" hidden>
         <div class="media-wrapper" id="media-wrapper"></div>
       </section>
 
+      <h3 class="section-subtitle" id="analysis-title" hidden>Analysis</h3>
       <section class="result" id="result" hidden>
         <div class="verdict" id="verdict">Analysis pending…</div>
         <div class="explanation" id="explanation"></div>
+      </section>
+
+      <h3 class="section-subtitle" id="reference-title" hidden>Reference</h3>
+      <section class="result" id="reference" hidden>
+        <div class="verdict">Reference summary</div>
+        <div class="explanation" id="reference-text"></div>
       </section>
 
       <section class="notes">
@@ -50,6 +87,11 @@
       <a href="https://github.com/" target="_blank" rel="noreferrer">View on GitHub</a>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js"></script>
+    <script>window.pdfjsLib && (pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.js');
+// Optional: override from window.SE_BACKEND in console if you deploy backend elsewhere
+window.SE_BACKEND = window.SE_BACKEND || '';
+</script>
     <script src="./script.js" defer></script>
   </body>
   </html>
