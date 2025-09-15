@@ -100,8 +100,10 @@
     </footer>
 
     <script>
-        // Backend API base (change for production deployment)
-        window.SE_BACKEND = 'https://YOUR-BACKEND-RENDER-URL.onrender.com';
+        // Backend API base (automatically detects environment)
+        window.SE_BACKEND = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8787' 
+            : 'https://plagrin-backend.onrender.com';
     </script>
     <script src="./script.js" defer></script>
 </body>
